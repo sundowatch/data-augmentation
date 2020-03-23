@@ -3,13 +3,13 @@ import numpy as np
 import imutils
 import os
 
-path = "E:\\Programming\\OpenCV\\data-augmentation\\in"
+path = os.getcwd() + "\\in"
 
 dir_list = os.listdir(path)
 
 i = 0
-
-processCount = 16
+j = 1
+processCount = 9
 
 for f in dir_list:
 
@@ -41,32 +41,41 @@ for f in dir_list:
     gaussian_180 = cv.GaussianBlur(rotated_180, (5,5), cv.BORDER_DEFAULT)
     gaussian_270 = cv.GaussianBlur(rotated_270, (5,5), cv.BORDER_DEFAULT)
 
+    gaussian2 = cv.GaussianBlur(image, (3,3), cv.BORDER_DEFAULT)
+
     gaussian_flipX = cv.GaussianBlur(flipX, (5,5), cv.BORDER_DEFAULT)
     gaussian_flipY = cv.GaussianBlur(flipY, (5,5), cv.BORDER_DEFAULT)
     gaussian_flip2 = cv.GaussianBlur(flip2, (5,5), cv.BORDER_DEFAULT)
 
     gaussian_resized = cv.GaussianBlur(resized, (5,5), cv.BORDER_DEFAULT)
 
-    cv.imwrite('out/'+f+'_original.jpg', image)
-    cv.imwrite('out/'+f+'_flipX.jpg', flipX)
-    cv.imwrite('out/'+f+'_flipY.jpg', flipY)
-    cv.imwrite('out/'+f+'_flip2.jpg', flip2)
-    cv.imwrite('out/'+f+'_rotated_90.jpg', rotated_90)
-    cv.imwrite('out/'+f+'_rotated_180.jpg', rotated_180)
-    cv.imwrite('out/'+f+'_rotated_270.jpg', rotated_270)
-    cv.imwrite('out/'+f+'_resized.jpg', resized)
-    cv.imwrite('out/'+f+'_gaussian.jpg', gaussian)
-    cv.imwrite('out/'+f+'_gaussian_90.jpg', gaussian_90)
-    cv.imwrite('out/'+f+'_gaussian_180.jpg', gaussian_180)
-    cv.imwrite('out/'+f+'_gaussian_270.jpg', gaussian_270)
-    cv.imwrite('out/'+f+'_gaussian_flipX.jpg', gaussian_flipX)
-    cv.imwrite('out/'+f+'_gaussian_flipY.jpg', gaussian_flipY)
-    cv.imwrite('out/'+f+'_gaussian_flip2.jpg', gaussian_flip2)
-    cv.imwrite('out/'+f+'_gaussian_resized.jpg', gaussian_resized)
+    newFilename = f.split('.')
+    newFilename = newFilename[0]
+
+    cv.imwrite('out/'+newFilename+'_original.jpg', image)
+    cv.imwrite('out/'+newFilename+'_flipX.jpg', flipX)
+    cv.imwrite('out/'+newFilename+'_flipY.jpg', flipY)
+    cv.imwrite('out/'+newFilename+'_flip2.jpg', flip2)
+    # cv.imwrite('out/'+newFilename+'_rotated_90.jpg', rotated_90)
+    # cv.imwrite('out/'+newFilename+'_rotated_180.jpg', rotated_180)
+    # cv.imwrite('out/'+newFilename+'_rotated_270.jpg', rotated_270)
+    # cv.imwrite('out/'+newFilename+'_resized.jpg', resized)
+    cv.imwrite('out/'+newFilename+'_gaussian.jpg', gaussian)
+    cv.imwrite('out/'+newFilename+'_gaussian2.jpg', gaussian2)
+    # cv.imwrite('out/'+newFilename+'_gaussian_90.jpg', gaussian_90)
+    # cv.imwrite('out/'+newFilename+'_gaussian_180.jpg', gaussian_180)
+    # cv.imwrite('out/'+newFilename+'_gaussian_270.jpg', gaussian_270)
+    cv.imwrite('out/'+newFilename+'_gaussian_flipX.jpg', gaussian_flipX)
+    cv.imwrite('out/'+newFilename+'_gaussian_flipY.jpg', gaussian_flipY)
+    cv.imwrite('out/'+newFilename+'_gaussian_flip2.jpg', gaussian_flip2)
+    # cv.imwrite('out/'+newFilename+'_gaussian_resized.jpg', gaussian_resized)
     
+    print(str(j) + "-) " + f + ' is finished!')
+
     i += processCount
-    print(f + ' is finished!')
+    j += 1
+    
 
 print('Bütün resimler kaydedildi')
-print(str(i) + 'tane resim üretildi')
+print(str(j-1) + " tane resimden " + str(i) + 'tane resim üretildi')
 
